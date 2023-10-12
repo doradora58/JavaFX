@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<!--<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" 
+	minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" 
+	fx:controller="application.SampleController"> -->
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.SampleController">
+	<center>
+		<AnchorPane prefHeight="200.0" prefWidth="200.0"
+			BorderPane.alignment="CENTER">
+			<children>
+				<ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" />
+				<Button fx:id="btn1" layoutX="170.0" layoutY="349.0"
+					mnemonicParsing="false" onAction="#doAction" text="Button" />
+				<TextField fx:id="field1" layoutX="15.0" layoutY="349.0" />
+				<TableView fx:id="tableView" layoutX="15.0" layoutY="46.0"
+					prefHeight="123.0" prefWidth="572.0">
+					<columns>
+						<TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
+						<TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
+						<!--  <TableColumn fx:id="c3" prefWidth="75.0" text="C3" />-->
+						<!--  <TableColumn fx:id="c4" prefWidth="75.0" text="C4" />-->
+						<!--  <TableColumn fx:id="c5" prefWidth="75.0" text="C5" />-->
+					</columns>
+				</TableView>
+				<!--<TreeTableView fx:id="treeTableView" layoutX="14.0"
+					layoutY="169.0" prefHeight="171.0" prefWidth="573.0">
+					<columns>
+						<TreeTableColumn fx:id="c1" prefWidth="75.0"
+							text="C1" />
+						<TreeTableColumn fx:id="c2" prefWidth="75.0"
+							text="C2" />
+						<TreeTableColumn fx:id="c3" prefWidth="75.0"
+							text="C3" />
+						<TreeTableColumn fx:id="c4" prefWidth="75.0"
+							text="C4" />
+						<TreeTableColumn fx:id="c5" prefWidth="75.0"
+							text="C5" />
+					</columns>
+				</TreeTableView>-->
+			</children>
+		</AnchorPane>
+	</center>
+</BorderPane>
