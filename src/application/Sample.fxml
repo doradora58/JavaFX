@@ -12,46 +12,47 @@
 
 <!--<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" 
 	minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" 
-	fx:controller="application.SampleController"> -->
+	fx:controller="application.FleetController"> -->
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-	prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="application.SampleController">
+	prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
+	xmlns:fx="http://javafx.com/fxml/1">
 	<center>
 		<AnchorPane prefHeight="200.0" prefWidth="200.0"
 			BorderPane.alignment="CENTER">
 			<children>
 				<ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" />
-				<Button fx:id="btn1" layoutX="170.0" layoutY="349.0"
-					mnemonicParsing="false" onAction="#doAction" text="Button" />
+				<Button fx:id="btn1" layoutX="100.0" layoutY="100.0"
+					mnemonicParsing="false" onAction="#startClientCommunication"
+					text="startClientCommunication" />
+				<Button fx:id="btn1" layoutX="100.0" layoutY="150.0"
+					mnemonicParsing="false" onAction="#sendMessage" text="sendMessage" />
+				<!-- <Button fx:id="btn1" layoutX="100.0" layoutY="200.0" mnemonicParsing="false" 
+					onAction="#startClientCommunication" text="startClientCommunication" /> -->
+				<Button fx:id="btn1" layoutX="300.0" layoutY="100.0"
+					mnemonicParsing="false" onAction="#startServerCommunication"
+					text="startServerCommunication" />
+				<Button fx:id="btn1" layoutX="300.0" layoutY="150.0"
+					mnemonicParsing="false" onAction="#receiveMessage"
+					text="receiveMessage" />
+				<!-- <Button fx:id="btn1" layoutX="300.0" layoutY="200.0" mnemonicParsing="false" 
+					onAction="#startClientCommunication" text="startClientCommunication" /> -->
 				<TextField fx:id="field1" layoutX="15.0" layoutY="349.0" />
-				<TableView fx:id="tableView" layoutX="15.0" layoutY="46.0"
+				<!--<TableView fx:id="tableView" layoutX="15.0" layoutY="46.0"
 					prefHeight="123.0" prefWidth="572.0">
-					<columns>
-						<TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
-						<TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
-						<!--  <TableColumn fx:id="c3" prefWidth="75.0" text="C3" />-->
-						<!--  <TableColumn fx:id="c4" prefWidth="75.0" text="C4" />-->
-						<!--  <TableColumn fx:id="c5" prefWidth="75.0" text="C5" />-->
-					</columns>
-				</TableView>
-				<!--<TreeTableView fx:id="treeTableView" layoutX="14.0"
-					layoutY="169.0" prefHeight="171.0" prefWidth="573.0">
-					<columns>
-						<TreeTableColumn fx:id="c1" prefWidth="75.0"
-							text="C1" />
-						<TreeTableColumn fx:id="c2" prefWidth="75.0"
-							text="C2" />
-						<TreeTableColumn fx:id="c3" prefWidth="75.0"
-							text="C3" />
-						<TreeTableColumn fx:id="c4" prefWidth="75.0"
-							text="C4" />
-						<TreeTableColumn fx:id="c5" prefWidth="75.0"
-							text="C5" />
-					</columns>
-				</TreeTableView>-->
+					 <columns> <TableColumn fx:id="c1" prefWidth="75.0" text="C1" /> 
+						<TableColumn fx:id="c2" prefWidth="75.0" text="C2" /> -->
+					<!-- <TableColumn fx:id="c3" prefWidth="75.0" text="C3" /> -->
+					<!-- <TableColumn fx:id="c4" prefWidth="75.0" text="C4" /> -->
+					<!-- <TableColumn fx:id="c5" prefWidth="75.0" text="C5" /> -->
+					<!-- </columns> </TableView> -->
+					<!--<TreeTableView fx:id="treeTableView" layoutX="14.0" layoutY="169.0" 
+						prefHeight="171.0" prefWidth="573.0"> <columns> <TreeTableColumn fx:id="c1" 
+						prefWidth="75.0" text="C1" /> <TreeTableColumn fx:id="c2" prefWidth="75.0" 
+						text="C2" /> <TreeTableColumn fx:id="c3" prefWidth="75.0" text="C3" /> <TreeTableColumn 
+						fx:id="c4" prefWidth="75.0" text="C4" /> <TreeTableColumn fx:id="c5" prefWidth="75.0" 
+						text="C5" /> </columns> </TreeTableView> -->
 			</children>
 		</AnchorPane>
 	</center>

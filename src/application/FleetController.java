@@ -19,13 +19,34 @@ import javafx.util.converter.DefaultStringConverter;
 
 import java.util.Arrays;
 
-public class SampleController {
+public class FleetController {
+	FleetModule fleetModule;
+	
+	FleetController(FleetModule fleetModule){
+		this.fleetModule = fleetModule;
+	}
 	@FXML 
 	TextField field1;
+	
 	@FXML
-	protected void doAction(ActionEvent event) {
-		System.out.println(field1.getText().toString());
+	protected void startClientCommunication(ActionEvent event) {
+		fleetModule.tcpCommunication.startClientCommunication();
 	}
+	
+	@FXML
+	protected void sendMessage(ActionEvent event) {
+		fleetModule.tcpCommunication.sendMessage();
+	}
+	
+	@FXML
+	protected void startServerCommunication(ActionEvent event) {
+		fleetModule.tcpCommunication.startServerCommunication();
+	}
+	@FXML
+	protected void receiveMessage(ActionEvent event) {
+		fleetModule.tcpCommunication.receiveMessage();
+	}
+	
 	@FXML
 	private TableView<Sample> tableView;
 	@FXML
@@ -41,23 +62,24 @@ public class SampleController {
 
 	@FXML
 	private void initialize(){
-		c1.setCellValueFactory(new PropertyValueFactory<>("value1"));
-		c2.setCellValueFactory(new PropertyValueFactory<>("value2"));
+		fleetModule.init();
+//		c1.setCellValueFactory(new PropertyValueFactory<>("value1"));
+//		c2.setCellValueFactory(new PropertyValueFactory<>("value2"));
 //		c3.setCellValueFactory(new PropertyValueFactory<>("value3"));
 //		c4.setCellValueFactory(new PropertyValueFactory<>("value4"));
 //		c5.setCellValueFactory(new PropertyValueFactory<>("value5"));
-
-		tableView.getItems().addAll(
-				new Sample("Name1", "Item1"),
-				new Sample("Name2", "Item2"),
-				new Sample("Name3", "Item3"),
-				new Sample("Name4", "FreeText"));
-	
-        tableView.setEditable(true);
-        c1.setCellFactory(TextFieldTableCell.forTableColumn());
-
+//
+//		tableView.getItems().addAll(
+//				new Sample("Name1", "Item1"),
+//				new Sample("Name2", "Item2"),
+//				new Sample("Name3", "Item3"),
+//				new Sample("Name4", "FreeText"));
+//	
+//        tableView.setEditable(true);
+//        c1.setCellFactory(TextFieldTableCell.forTableColumn());
+//
 //        c2.setCellFactory(ChoiceBoxTableCell.forTableColumn("Item1", "Item2", "Item3"));
-        c2.setCellFactory(ComboBoxTableCell.forTableColumn("Item1", "Item2"));
+//        c2.setCellFactory(ComboBoxTableCell.forTableColumn("Item1", "Item2"));
 //        c3.setCellFactory(CheckBoxTableCell.forTableColumn((Callback<Integer, ObservableValue<Boolean>>) c3));
 //        c3.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
 //        c4.setCellFactory(ColorPickerTableCell.forTableColumn());
