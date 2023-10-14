@@ -12,11 +12,11 @@ public class FleetModule {
 		if(config){
 			// I need to read external file.
 			String clientLocalIp = "127.0.0.1";
-			String clientRemoteIp = "127.0.0.1";
+			String clientRemoteIp = "192.168.110.100";
 			int clientLocalPort = 51000;
 			int clientRemotePort = 55000;
-			String serverLocalIp = "127.0.0.1";
-			int serverLocalPort = 51000;
+			String serverLocalIp = "192.168.110.100";
+			int serverLocalPort = 55000;
 			// setting file configuration
 			System.out.println("Set TcpConfig");
 			tcpConfig = new TcpConfig();

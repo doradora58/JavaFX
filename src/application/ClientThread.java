@@ -15,7 +15,7 @@ public class ClientThread extends Thread {
 	SocketChannel socketChannel;
 	InetSocketAddress remoteAddress;
 	InetSocketAddress localAddress;
-
+	boolean isBlockingMode = true;
 	ClientThread(InetSocketAddress remoteAddress, InetSocketAddress localAddress) {
 		this.remoteAddress = remoteAddress;
 		this.localAddress = localAddress;
@@ -24,8 +24,9 @@ public class ClientThread extends Thread {
 	public void init() {
 		try {
 			socketChannel = SocketChannel.open();
-			socketChannel.configureBlocking(true);
-			socketChannel.socket().bind(localAddress);
+//			socketChannel.bind(localAddress);
+			socketChannel.configureBlocking(isBlockingMode);
+			System.out.println("ClientThread LocalAddress "+socketChannel.getLocalAddress());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,22 +39,43 @@ public class ClientThread extends Thread {
 		while (isRun) {
 			try {
 				if(!socketChannel.isConnected()) {
-					System.out.println("ClientThread connecting...");
-					socketChannel.socket().connect(remoteAddress,CONNECT_TIME_OUT);
-					
+					System.out.println("ClientThread connecting..."+remoteAddress);
+					socketChannel.socket().connect(remoteAddress,CONNECT_TIME_OUT);			
+					System.out.println("ClientThread complete connect " + socketChannel.socket().getRemoteSocketAddress());
+
 				}
 				else {
 					System.out.println("ClientThread complete connect " + socketChannel.socket().getRemoteSocketAddress());
-					
+					boolean isConnecting =true;
+					while(isConnecting ) {
+
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							
+							e.printStackTrace();
+						}
+					}
 				}
 			} catch (IOException e) {
+				e.printStackTrace();
+				
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				continue;
+				try {
+					socketChannel = SocketChannel.open();
+//					socketChannel.socket().bind(localAddress);
+					socketChannel.configureBlocking(isBlockingMode);
+					System.out.println("ClientThread LocalAddress "+socketChannel.getLocalAddress());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		}
@@ -61,30 +83,28 @@ public class ClientThread extends Thread {
 
 	public void sendMessage() {
 
-		int dataSize = 14; //byte unit
+		int byteBufferSize = 14; //byte unit
 
 		// 送信バッファデータを構築(今回はint型をテストするので最低4バイトを確保)
-		ByteBuffer bb = ByteBuffer.allocate(dataSize);
-		long id = messageId;
-		int no = 2222;
-		short areaId = 1234;
-		boolean valid = true;
-		String version ="1.1.1";
-		Status status = new Status(id, no, areaId, version);
-		status.printData();
+		ByteBuffer byteBuffer = ByteBuffer.allocate(byteBufferSize);
+		byte data = 0;
+		while(byteBuffer.hasRemaining()) {
+			byteBuffer.put(data);
+			data++;
+		}
 
-		bb = serializeStatus(status);
+		//		byteBuffer = serializeStatus(status);
 		// 操作説明
 		//        System.out.println("送信する数値を入力してEnterで送信します。");
 
 		// 数値を入力させる(オーバーフローなどは考慮していない)
 		//        bb.putInt(new Scanner(System.in).nextInt());
 		// 送信準備を行う
-		bb.flip();
+		byteBuffer.flip();
 
 		// 送信処理
 		try {
-			socketChannel.write(bb);
+			socketChannel.write(byteBuffer);
 			//System.out.println("送信："+bb.getInt(0));
 		} catch (IOException e) {
 			e.printStackTrace();

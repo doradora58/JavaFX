@@ -14,11 +14,11 @@ public class ServerThread extends Thread{
 
 	private boolean isRun = false;
 	private InetSocketAddress serverAddress;
-	
+
 	private SocketChannel socketChannel;
 	private ServerSocketChannel serverSocketChannel;
-	boolean isBlockingMode = false;
-	
+	boolean isBlockingMode = true;
+
 	ServerThread(InetSocketAddress serverAddress){
 		this.isRun = false;
 		this.serverAddress = serverAddress;
@@ -28,8 +28,9 @@ public class ServerThread extends Thread{
 		try {
 			this.serverSocketChannel = ServerSocketChannel.open();
 			// ノンブロッキングモード
-			this.serverSocketChannel.configureBlocking(false);
 			this.serverSocketChannel.socket().bind(serverAddress);
+			this.serverSocketChannel.configureBlocking(isBlockingMode);
+			System.out.println("ServerThread LocalAddress "+serverSocketChannel.getLocalAddress());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -41,21 +42,37 @@ public class ServerThread extends Thread{
 			try {
 				System.out.println("ServerThread accepting...");
 				socketChannel = this.serverSocketChannel.accept();
-				int dataSize =1024;
-				ByteBuffer buf = ByteBuffer.allocate(dataSize);
-				if(socketChannel!=null){
-					socketChannel.read(buf);
-					StatusMessage statusMessage = deserializeStatus(buf);
-					statusMessage.printData();
+
+				System.out.println("ServerThread complete connect");
+				boolean isConnecting = true;
+
+				while(isConnecting) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+		}
+	}
+	public void reaadMessage() {
+		int dataSize =1024;
+		ByteBuffer buf = ByteBuffer.allocate(dataSize);
+		if(socketChannel!=null){
 			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+				socketChannel.read(buf);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			StatusMessage statusMessage = deserializeStatus(buf);
+			statusMessage.printData();
 		}
 	}
 
@@ -74,7 +91,7 @@ public class ServerThread extends Thread{
 				}
 			}
 		}
-//		buf.position(0);
+		//		buf.position(0);
 		buf.flip();
 		long id = buf.getLong();
 		buf.position(8);
@@ -85,16 +102,16 @@ public class ServerThread extends Thread{
 		buf.position(14);
 		buf.limit(19);
 		String version = StandardCharsets.UTF_8.decode(buf).toString();
-//		System.out.println(version);
-//		String version = versionBuf.toString();
+		//		System.out.println(version);
+		//		String version = versionBuf.toString();
 		buf.position(19);
 		buf.limit(45);
-//		CharBuffer newContent = StandardCharsets.UTF_8.decode(buf);
-//		System.out.println(newContent);
-//		String version = newContent.toString();
+		//		CharBuffer newContent = StandardCharsets.UTF_8.decode(buf);
+		//		System.out.println(newContent);
+		//		String version = newContent.toString();
 		String currentTime = StandardCharsets.UTF_8.decode(buf).toString();
-//		System.out.println(currentTime);
-		
+		//		System.out.println(currentTime);
+
 		return new StatusMessage(id, no, areaId, version, currentTime);//new StatusMessage(id, no, areaId, version, currentTime);
 	}
 
