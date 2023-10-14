@@ -78,6 +78,7 @@ public class TcpCommunication implements ITcpCommunication {
 
 	@Override
 	public void receiveMessage(){
+		serverThread.reaadMessage();
 
 	}
 
