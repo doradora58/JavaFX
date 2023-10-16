@@ -87,19 +87,9 @@ public class ClientThread extends Thread {
 
 		// 送信バッファデータを構築(今回はint型をテストするので最低4バイトを確保)
 		ByteBuffer byteBuffer = ByteBuffer.allocate(byteBufferSize);
-		byte data = 0;
-		while(byteBuffer.hasRemaining()) {
-			byteBuffer.put(data);
-			data++;
-		}
+		serializeMessage(byteBuffer);
 
-		//		byteBuffer = serializeStatus(status);
-		// 操作説明
-		//        System.out.println("送信する数値を入力してEnterで送信します。");
 
-		// 数値を入力させる(オーバーフローなどは考慮していない)
-		//        bb.putInt(new Scanner(System.in).nextInt());
-		// 送信準備を行う
 		byteBuffer.flip();
 
 		// 送信処理
@@ -108,6 +98,15 @@ public class ClientThread extends Thread {
 			//System.out.println("送信："+bb.getInt(0));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void serializeMessage(ByteBuffer byteBuffer) {
+		// TODO Auto-generated method stub
+		byte data = 0;
+		while(byteBuffer.hasRemaining()) {
+			byteBuffer.put(data);
+			data++;
 		}
 	}
 

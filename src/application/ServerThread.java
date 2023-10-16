@@ -79,19 +79,21 @@ public class ServerThread extends Thread{
 	private StatusMessage deserializeStatus(ByteBuffer buf) {
 		// TODO Auto-generated method stub
 		int dataSize =1024;
-		if(buf != null){
-			//intデータを受信データの0バイト目から読み込み
-			for (int i = 0; i < dataSize; i++) {
-				if(i == 0) {
-					System.out.print("受信データ "+buf.get(i)+", ");
-				}else if(i != dataSize-1) {
-					System.out.print(buf.get(i)+", ");
-				}else {
-					System.out.println(buf.get(i));
-				}
-			}
+		StringBuilder stringBuilder16 = new StringBuilder();
+		StringBuilder stringBuilder2 = new StringBuilder();
+		buf.flip();
+		while(buf.hasRemaining()) {
+			byte byteBuf = buf.get();
+			String str16 = String.format("%02X ", byteBuf);
+			stringBuilder16.append(str16);
+			int i = Byte.toUnsignedInt(byteBuf);
+			String str2 = Integer.toBinaryString(i);
+			str2 = String.format("%8s",str2).replace(' ','0');
+			stringBuilder2.append(str2+" ");
 		}
-		//		buf.position(0);
+		System.out.println("受信データ（１６進数）："+stringBuilder16.toString());
+		System.out.println("受信データ（２進数）："+stringBuilder2.toString());
+
 		buf.flip();
 		long id = buf.getLong();
 		buf.position(8);
